@@ -11,7 +11,7 @@ using MiniBlog.Core.Models;
 
 namespace MiniBlog.Controllers
 {
-    [Authorize(Roles="Admin,Standard")]
+    [Authorize(Roles="Standard")]
     [ApiController]
     [Route("[controller]")]
     public class BlogPostController : ControllerBase

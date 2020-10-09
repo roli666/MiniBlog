@@ -1,3 +1,4 @@
+using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -41,6 +42,7 @@ namespace MiniBlog
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MiniBlogDBContext>();
 
             services.AddIdentityServer(options => options.Events.RaiseFailureEvents = true)
@@ -48,6 +50,11 @@ namespace MiniBlog
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.ClaimsIdentity.RoleClaimType = JwtClaimTypes.Role;
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();

@@ -10,8 +10,8 @@ using MiniBlog.Data;
 namespace MiniBlog.Data.Migrations
 {
     [DbContext(typeof(MiniBlogDBContext))]
-    [Migration("20201008143654_RoleMigration")]
-    partial class RoleMigration
+    [Migration("20201009131947_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

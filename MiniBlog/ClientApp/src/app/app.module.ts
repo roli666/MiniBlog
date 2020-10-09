@@ -41,6 +41,7 @@ library.add(fas, fab);
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent, canActivate: [AuthorizeGuard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'blog-post', component: BlogPostComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [

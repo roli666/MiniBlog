@@ -13,27 +13,32 @@ namespace MiniBlog.IdentityServer
 {
     public class ProfileService : IProfileService
     {
-        private readonly UserManager<ApplicationUser> mUserManager;
-        private readonly IUserClaimsPrincipalFactory<ApplicationUser> claimsFactory;
+        protected UserManager<ApplicationUser> mUserManager;
 
-        public ProfileService(UserManager<ApplicationUser> userManager,IUserClaimsPrincipalFactory<ApplicationUser> claimsFactory)
+        public ProfileService(UserManager<ApplicationUser> userManager)
         {
             mUserManager = userManager;
-            this.claimsFactory = claimsFactory;
-        }
-        public Task GetProfileDataAsync(ProfileDataRequestContext context)
-        {
-            var roleClaims = context.Subject.FindAll(JwtClaimTypes.Role);
-            List<string> list = context.RequestedClaimTypes.ToList();
-            context.IssuedClaims.AddRange(roleClaims);
-            return Task.CompletedTask;
+
         }
 
-        public async Task IsActiveAsync(IsActiveContext context)
+        public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            var sub = context.Subject.GetSubjectId();
-            var user = await mUserManager.FindByIdAsync(sub);
-            context.IsActive = user != null;
+            ApplicationUser user = await mUserManager.GetUserAsync(context.Subject);
+
+            IList<string> roles = await mUserManager.GetRolesAsync(user);
+
+            IList<Claim> roleClaims = new List<Claim>();
+            foreach (string role in roles)
+            {
+                roleClaims.Add(new Claim(JwtClaimTypes.Role, role));
+            }
+            context.IssuedClaims.Add(new Claim(JwtClaimTypes.Name, user.UserName));
+            context.IssuedClaims.AddRange(roleClaims);
+        }
+
+        public Task IsActiveAsync(IsActiveContext context)
+        {
+            return Task.CompletedTask;
         }
     }
 }
