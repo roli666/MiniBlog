@@ -2,6 +2,7 @@ using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ using MiniBlog.Core.Services;
 using MiniBlog.Data;
 using MiniBlog.Data.InMemory;
 using MiniBlog.IdentityServer;
+using MiniBlog.IdentityServer.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +50,16 @@ namespace MiniBlog
             services.AddIdentityServer(options => options.Events.RaiseFailureEvents = true)
                 .AddApiAuthorization<ApplicationUser, MiniBlogDBContext>();
 
-            services.AddAuthentication()
+            services.AddAuthorization(options=> 
+            { 
+                options.AddPolicy(Policies.RequireMinimumRole, policy => policy.Requirements.Add(new MinimumRoleRequirement(Roles.Standard))); 
+            });
+
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            })
                 .AddIdentityServerJwt();
 
             services.Configure<IdentityOptions>(options =>
@@ -65,6 +76,7 @@ namespace MiniBlog
             });
 
             services.AddTransient<IProfileService, ProfileService>();
+            services.AddSingleton<IAuthorizationHandler, MinimumRoleHandler>();
 
             RegisterRepositories(services);
             RegisterServices(services);

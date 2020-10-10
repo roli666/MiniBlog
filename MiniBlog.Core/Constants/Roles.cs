@@ -6,7 +6,7 @@ namespace MiniBlog.Core.Constants
 {
     public static class Roles
     {
-        public static readonly string Admin = "Admin";
-        public static readonly string Standard = "Standard";
+        public const string Admin = "Admin";
+        public const string Standard = "Standard";
     }
 }

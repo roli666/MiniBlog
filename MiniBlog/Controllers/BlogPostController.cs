@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MiniBlog.Core.Constants;
 using MiniBlog.Core.Entities;
 using MiniBlog.Core.Interfaces;
 using MiniBlog.Core.Models;
 
 namespace MiniBlog.Controllers
 {
-    [Authorize(Roles="Standard")]
+    [Authorize(Policies.RequireMinimumRole)]
     [ApiController]
     [Route("[controller]")]
     public class BlogPostController : ControllerBase
