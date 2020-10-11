@@ -18,6 +18,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { FooterComponent } from './footer/footer.component';
+import { BlogPostCarouselComponent } from './blog-post-carousel/blog-post-carousel.component';
 
 library.add(fas, fab);
 
@@ -26,10 +27,9 @@ library.add(fas, fab);
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     BlogPostComponent,
     FooterComponent,
+    BlogPostCarouselComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,9 +39,7 @@ library.add(fas, fab);
     FontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent, canActivate: [AuthorizeGuard] },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'blog-post', component: BlogPostComponent, canActivate: [AuthorizeGuard] },
+      //{ path: 'counter', component: CounterComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [

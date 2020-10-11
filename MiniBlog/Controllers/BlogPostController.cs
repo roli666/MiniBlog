@@ -32,7 +32,8 @@ namespace MiniBlog.Controllers
         public async Task<IEnumerable<BlogPostBase>> Get()
         {
             var user = await userManager.GetUserAsync(User);
-            return await blogPostService.GetBlogPostsForUser(user);
+            var posts = await blogPostService.GetBlogPostsForUser(user);
+            return posts;
         }
     }
 }

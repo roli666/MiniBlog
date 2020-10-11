@@ -60,7 +60,7 @@ namespace MiniBlog.Data.InMemory
 
         public async Task<IEnumerable<BlogPostBase>> GetAllBlogPostsByAgeRestriction(AgeRestrictionCategories allowedAges)
         {
-            return await Task.FromResult(blogPosts.Where(b => b.AllowedAge == allowedAges));
+            return await Task.FromResult(blogPosts.Where(b => (b.AllowedAge & allowedAges) == allowedAges));
         }
 
         public async Task<T> CreateBlogPost<T>(T blogPost) where T : BlogPostBase

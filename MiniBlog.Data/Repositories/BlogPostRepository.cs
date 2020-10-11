@@ -42,7 +42,7 @@ namespace MiniBlog.Data.Repositories
 
         public async Task<IEnumerable<BlogPostBase>> GetAllBlogPostsByAgeRestriction(AgeRestrictionCategories allowedAge)
         {
-            return await db.BlogPosts.Where(bp => bp.AllowedAge == allowedAge).ToListAsync();
+            return await db.BlogPosts.Where(bp => (bp.AllowedAge & allowedAge) == allowedAge).ToListAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllBlogPostsByCategory<T>() where T : BlogPostBase
