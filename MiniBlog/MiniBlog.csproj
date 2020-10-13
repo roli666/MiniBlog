@@ -33,12 +33,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="ClientApp\src\app\blog-post\shared\blogpost.model.ts" />
+    <None Remove="ClientApp\src\app\comments\shared\comment.model.ts" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MiniBlog.Data\MiniBlog.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\blog-post\shared\blogpost.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\comments\shared\comment.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

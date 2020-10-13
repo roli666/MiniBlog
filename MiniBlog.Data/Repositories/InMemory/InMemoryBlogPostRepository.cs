@@ -24,21 +24,33 @@ namespace MiniBlog.Data.InMemory
                     Content="Valami sportos vmi",
                     CreatedOn=DateTime.Now,
                     Id=Guid.Parse(SportBlogPostId),
-                    Title="Sportos title"
+                    Title="Sportos title",
+                    BackgroundImage=new Image
+                    {
+                        ImagePath=new Uri("img/InMemory/SportBlogPic.jpg",UriKind.Relative)
+                    }
                 },
                 new ChildBlogPost
                 {
                     Content="Valami gyerekes vmi",
                     CreatedOn=DateTime.Now,
                     Id=Guid.Parse(ChildBlogPostId),
-                    Title="gyerekes title"
+                    Title="gyerekes title",
+                    BackgroundImage=new Image
+                    {
+                        ImagePath=new Uri("img/InMemory/ChildBlogPic.jpg",UriKind.Relative)
+                    }
                 },
                 new PublicLifeBlogPost
                 {
                     Content="Valami public life cucc",
                     CreatedOn=DateTime.Now,
                     Id=Guid.Parse(PublicLifeBlogPostId),
-                    Title="public life title"
+                    Title="public life title",
+                    BackgroundImage=new Image
+                    {
+                        ImagePath=new Uri("img/InMemory/PublicLifeBlogPic.jpg",UriKind.Relative)
+                    }
                 },
             };
         }

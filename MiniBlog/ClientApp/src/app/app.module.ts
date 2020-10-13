@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
@@ -20,6 +18,8 @@ import { BlogPostComponent } from './blog-post/blog-post.component';
 import { FooterComponent } from './footer/footer.component';
 import { BlogPostCarouselComponent } from './blog-post-carousel/blog-post-carousel.component';
 import { ImagePreloadDirective } from './image-preload.directive';
+import { NgbPaginationModule, NgbAlertModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommentsComponent } from './comments/comments.component';
 
 library.add(fas, fab);
 
@@ -32,6 +32,7 @@ library.add(fas, fab);
     FooterComponent,
     BlogPostCarouselComponent,
     ImagePreloadDirective,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,6 +40,9 @@ library.add(fas, fab);
     FormsModule,
     ApiAuthorizationModule,
     FontAwesomeModule,
+    NgbPaginationModule,
+    NgbAlertModule,
+    NgbCarouselModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       //{ path: 'counter', component: CounterComponent, canActivate: [AuthorizeGuard] },

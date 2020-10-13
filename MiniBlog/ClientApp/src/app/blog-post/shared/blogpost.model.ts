@@ -1,12 +1,11 @@
 export interface BlogPost {
+  Id: string;
   Title: string;
   Content: string;
   CreatedBy: string;
-  BackgroundImage: Image;
-  AllowedAge: string[];
+  Category: string;
+  BackgroundImage: string;
+  Comments: Comment;
+  AllowedAges: string[];
   CreatedOn: Date;
-}
-export interface Image {
-  ImageName: string;
-  ImagePath: string;
 }

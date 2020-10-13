@@ -1,0 +1,92 @@
+/*
+ngb-carousel .picsum-img-wrapper {
+  position: relative;
+  height: 0;
+  padding-top: 55%
+}
+
+  ngb-carousel .picsum-img-wrapper > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0
+  }
+ngb-carousel .carousel-item img {
+  width: 100%
+}
+.carousel-caption {
+  position: absolute;
+  right: 15%;
+  bottom: 20px;
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center
+}
+.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+  display: block
+}
+
+  .active.carousel-item-right, .carousel-item-next:not(.carousel-item-left) {
+    transform: translateX(100%)
+  }
+
+  .active.carousel-item-left, .carousel-item-prev:not(.carousel-item-right) {
+    transform: translateX(-100%)
+  }
+
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition-property: opacity;
+  transform: none
+}
+
+  .carousel-fade .carousel-item-next.carousel-item-left, .carousel-fade .carousel-item-prev.carousel-item-right, .carousel-fade .carousel-item.active {
+    z-index: 1;
+    opacity: 1
+  }
+
+.carousel-fade .active.carousel-item-left, .carousel-fade .active.carousel-item-right {
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0s .6s
+}
+.carousel {
+  position: relative
+}
+
+  .carousel.pointer-event {
+    touch-action: pan-y
+  }
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden
+}
+
+  .carousel-inner:after {
+    display: block;
+    clear: both;
+    content: ""
+  }
+
+.carousel-item {
+  position: relative;
+  display: none;
+  float: left;
+  width: 100%;
+  margin-right: -100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform .6s ease-in-out
+}
+*/
+.carousel {
+  /* any dimensions are fine, it can be responsive with max-width */
+  width: 700px;
+  height: 350px;
+}
