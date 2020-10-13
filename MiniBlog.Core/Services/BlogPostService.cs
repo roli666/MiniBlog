@@ -16,8 +16,13 @@ namespace MiniBlog.Core.Services
         {
             this.blogPostRepository = blogPostRepository;
         }
-        public async Task<IEnumerable<BlogPostBase>> GetBlogPostsForUser(ApplicationUser user)
+
+        public async Task<IEnumerable<BlogPostBase>> GetBlogPostsForUser(ApplicationUser user, bool isAdmin)
         {
+            if (isAdmin)
+            {
+                return await blogPostRepository.GetAllBlogPosts();
+            }
             return await blogPostRepository.GetAllBlogPostsByAgeRestriction(user.GetAgeRestrictionCategories());
         }
     }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
@@ -23,6 +24,7 @@ using MiniBlog.IdentityServer.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MiniBlog
@@ -78,6 +80,8 @@ namespace MiniBlog
             services.AddTransient<IProfileService, ProfileService>();
             services.AddSingleton<IAuthorizationHandler, MinimumRoleHandler>();
 
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             RegisterRepositories(services);
             RegisterServices(services);
         }
@@ -126,7 +130,8 @@ namespace MiniBlog
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }

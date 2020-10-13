@@ -9,5 +9,7 @@ namespace MiniBlog.Core.Entities
             AgeRestrictionCategories.Gyerek |
             AgeRestrictionCategories.Idős)
         { }
+
+        public override string Category => "Gyerek";
     }
 }

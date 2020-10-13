@@ -7,6 +7,6 @@ namespace MiniBlog.Core.Interfaces
 {
     public interface IBlogPostService
     {
-        Task<IEnumerable<BlogPostBase>> GetBlogPostsForUser(ApplicationUser user);
+        Task<IEnumerable<BlogPostBase>> GetBlogPostsForUser(ApplicationUser user,bool isAdmin);
     }
 }

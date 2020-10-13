@@ -1,25 +1,18 @@
-﻿using MiniBlog.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MiniBlog.Core.Entities
+namespace MiniBlog.ViewModels
 {
     public class Comment
     {
         public Guid Id { get; set; }
-        public ApplicationUser OwnerUser { get; set; }
         public Guid OwnerPostId { get; set; }
-        public BlogPostBase OwnerPost { get; set; }
         public Comment Parent { get; set; }
-        public IEnumerable<Comment> Children { get; set; }
-
-        [Required(AllowEmptyStrings = false)]
-        [StringLength(maximumLength: 255, MinimumLength = 1)]
+        public List<Comment> Children { get; set; }
         public string Content { get; set; }
-
-        [NotMapped]
+        public string OwnerUser { get; set; }
         public int Depth { get; private set; }
 
         public Comment()

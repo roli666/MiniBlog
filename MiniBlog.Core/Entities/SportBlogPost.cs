@@ -7,5 +7,7 @@ namespace MiniBlog.Core.Entities
         public SportBlogPost() : base(AgeRestrictionCategories.Felnőtt)
         {
         }
+
+        public override string Category => "Sport";
     }
 }

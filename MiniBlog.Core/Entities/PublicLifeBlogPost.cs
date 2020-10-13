@@ -8,5 +8,7 @@ namespace MiniBlog.Core.Entities
             AgeRestrictionCategories.Idős)
         {
         }
+
+        public override string Category => "Public Life";
     }
 }

@@ -19,6 +19,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { FooterComponent } from './footer/footer.component';
 import { BlogPostCarouselComponent } from './blog-post-carousel/blog-post-carousel.component';
+import { ImagePreloadDirective } from './image-preload.directive';
 
 library.add(fas, fab);
 
@@ -30,6 +31,7 @@ library.add(fas, fab);
     BlogPostComponent,
     FooterComponent,
     BlogPostCarouselComponent,
+    ImagePreloadDirective,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
