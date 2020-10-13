@@ -9,16 +9,16 @@ namespace MiniBlog.AutoMapper
     {
         public BlogPostMappingProfile()
         {
-            CreateMap<BlogPostBase,BlogPost>().ConstructUsing(bb => new BlogPost { 
-                AllowedAges = bb.AllowedAge.GetAgeRestrictions(),
-                BackgroundImage = bb.BackgroundImage.ImagePath.ToString(),
-                Category = bb.Category,
-                Content = bb.Content,
-                CreatedBy = bb.CreatedBy.UserName,
-                CreatedOn = bb.CreatedOn,
-                Id = bb.Id,
-                Title = bb.Title
-            });
+            CreateMap<BlogPostBase, BlogPost>()
+                .ForMember(dest => dest.AllowedAges, opt => opt.MapFrom(src => src.AllowedAge.GetAgeRestrictions()))
+                .ForMember(dest => dest.BackgroundImage, opt => opt.MapFrom(src => src.BackgroundImage.ImagePath))
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy.UserName))
+                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title));
         }
     }
 }
