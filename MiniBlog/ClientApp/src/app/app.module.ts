@@ -45,7 +45,7 @@ library.add(fas, fab);
     NgbCarouselModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      //{ path: 'counter', component: CounterComponent, canActivate: [AuthorizeGuard] },
+      //{ path: 'image', component: CounterComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [

@@ -27,6 +27,7 @@ namespace MiniBlog.Controllers
         [HttpGet]
         public async Task<IEnumerable<Comment>> GetComments(Guid id)
         {
+            _logger.LogInformation("Loading comments for:{0}", id);
             return await repo.GetCommentsRelatedToBlogPost(id);
         }
     }

@@ -15,38 +15,20 @@ namespace MiniBlog.Data
 {
     public static class SeedData
     {
-        public static readonly string AdminUserName = "admin@contoso.com";
-        public static async Task Initialize(IServiceProvider serviceProvider, IWebHostEnvironment env, string testUserPw)
+        public const string AdminUserName = "Admin";
+        public const string AdminEmail = "admin@contoso.com";
+        public static async Task Initialize(IServiceProvider serviceProvider, string testUserPw)
         {
             using var context = new MiniBlogDBContext(
                 serviceProvider.GetRequiredService<DbContextOptions<MiniBlogDBContext>>(),
                 serviceProvider.GetRequiredService<IOptions<OperationalStoreOptions>>()
                 );
             await CreateRoles(serviceProvider);
-            var adminID = await EnsureUser(serviceProvider, testUserPw, AdminUserName);
-            await EnsureRole(serviceProvider, adminID, Roles.Admin);
-            SeedDB(context, env, adminID);
-        }
-
-        public static void SeedDB(MiniBlogDBContext context, IWebHostEnvironment env, string adminID)
-        {
-            if (context.Users.Any())
+            if (!context.Users.Any())
             {
-                return;   // DB has been seeded
+                var adminID = await EnsureUser(serviceProvider, testUserPw, AdminUserName);
+                await EnsureRole(serviceProvider, adminID, Roles.Admin);
             }
-
-            context.Users.Add(new ApplicationUser
-            {
-                Id = adminID,
-                ProfilePicture = new Image
-                {
-                    Id = Guid.NewGuid(),
-                    ImageName = "SeedUserProfilePic",
-                    ImagePath = new Uri($"{env.WebRootPath}\\SeedUserAvatar.png")
-                }
-            });
-
-            context.SaveChanges();
         }
 
         private static async Task CreateRoles(IServiceProvider serviceProvider)
@@ -77,7 +59,14 @@ namespace MiniBlog.Data
                 user = new ApplicationUser
                 {
                     UserName = UserName,
-                    EmailConfirmed = true
+                    Email = AdminEmail,
+                    EmailConfirmed = true,
+                    ProfilePicture = new Image
+                    {
+                        Id = Guid.NewGuid(),
+                        ImageName = "SeedUserAvatar",
+                        ImagePath = new Uri("img/SeedUserAvatar.png", UriKind.Relative)
+                    }
                 };
                 await userManager.CreateAsync(user, testUserPw);
             }

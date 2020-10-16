@@ -1,13 +1,11 @@
 using AutoMapper;
 using IdentityModel;
-using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,13 +17,10 @@ using MiniBlog.Core.Models;
 using MiniBlog.Core.Services;
 using MiniBlog.Data;
 using MiniBlog.Data.InMemory;
+using MiniBlog.Data.Repositories;
 using MiniBlog.IdentityServer;
 using MiniBlog.IdentityServer.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace MiniBlog
 {
@@ -52,12 +47,13 @@ namespace MiniBlog
             services.AddIdentityServer(options => options.Events.RaiseFailureEvents = true)
                 .AddApiAuthorization<ApplicationUser, MiniBlogDBContext>();
 
-            services.AddAuthorization(options=> 
-            { 
-                options.AddPolicy(Policies.RequireMinimumRole, policy => policy.Requirements.Add(new MinimumRoleRequirement(Roles.Standard))); 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policies.RequireMinimumRole, policy => policy.Requirements.Add(new MinimumRoleRequirement(Roles.Standard)));
             });
 
-            services.AddAuthentication(options => {
+            services.AddAuthentication(options =>
+            {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
@@ -138,14 +134,16 @@ namespace MiniBlog
 
         private void RegisterServices(IServiceCollection services)
         {
-            services.AddSingleton<ICommentService, CommentService>();
-            services.AddSingleton<IBlogPostService, BlogPostService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IBlogPostService, BlogPostService>();
+            services.AddTransient<IImageService, ImageService>();
         }
 
         private void RegisterRepositories(IServiceCollection services)
         {
-            services.AddSingleton<ICommentRepository, InMemoryCommentRepository>();
-            services.AddSingleton<IBlogRepository, InMemoryBlogPostRepository>();
+            services.AddTransient<ICommentRepository, InMemoryCommentRepository>();
+            services.AddTransient<IBlogRepository, InMemoryBlogPostRepository>();
+            services.AddTransient<IImageRepository, ImageRepository>();
         }
     }
 }

@@ -3,6 +3,7 @@ import { User, UserManager, WebStorageStateStore } from 'oidc-client';
 import { BehaviorSubject, concat, from, Observable } from 'rxjs';
 import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
 import { ApplicationPaths, ApplicationName } from './api-authorization.constants';
+import { IUser } from './shared/user.model';
 
 export type IAuthenticationResult =
   SuccessAuthenticationResult |
@@ -27,10 +28,6 @@ export enum AuthenticationResultStatus {
   Success,
   Redirect,
   Fail
-}
-
-export interface IUser {
-  name?: string;
 }
 
 @Injectable({

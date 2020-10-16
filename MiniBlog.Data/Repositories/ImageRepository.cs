@@ -4,9 +4,6 @@ using MiniBlog.Core.Entities;
 using MiniBlog.Core.Interfaces.Repositories;
 using MiniBlog.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MiniBlog.Data.Repositories
@@ -14,37 +11,26 @@ namespace MiniBlog.Data.Repositories
     public class ImageRepository : IImageRepository
     {
         private readonly MiniBlogDBContext db;
-        private readonly IWebHostEnvironment env;
 
-        public ImageRepository(MiniBlogDBContext db, IWebHostEnvironment env)
+        public ImageRepository(MiniBlogDBContext db)
         {
             this.db = db;
-            this.env = env;
         }
+
         public async Task<Image> AddImage(Image image)
         {
             await db.Images.AddAsync(image);
             return image;
         }
 
-        public Task<Image> GetAvatarImageForUser(ApplicationUser user)
+        public async Task<Image> GetAvatarImageForUser(ApplicationUser user)
         {
-            return Task.FromResult(user.ProfilePicture ??
-                new Image
-                {
-                    ImageName = "Placeholder",
-                    ImagePath = new Uri(env.WebRootPath + @"\img\AvatarPlaceholder.png")
-                });
+            return await db.Images.FirstOrDefaultAsync(img => img.Id == user.ProfilePictureId);
         }
 
         public async Task<Image> GetImageById(Guid id)
         {
-            return await db.Images.FirstOrDefaultAsync(img => img.Id == id) ?? 
-                new Image 
-                { 
-                    ImageName = "Placeholder",
-                    ImagePath = new Uri(env.WebRootPath + @"\img\ImagePlaceHolder.png")
-                };
+            return await db.Images.FirstOrDefaultAsync(img => img.Id == id);
         }
 
         public async Task<Image> GetImageByName(string name)

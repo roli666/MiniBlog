@@ -1,11 +1,11 @@
 export interface BlogPost {
-  Id: string;
-  Title: string;
-  Content: string;
-  CreatedBy: string;
-  Category: string;
-  BackgroundImage: string;
-  Comments: Comment;
-  AllowedAges: string[];
-  CreatedOn: Date;
+  id: string;
+  title: string;
+  content: string;
+  createdBy: string;
+  category: string;
+  backgroundImage: string;
+  comments: Comment;
+  allowedAges: string[];
+  createdOn: Date;
 }

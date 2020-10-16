@@ -32,6 +32,8 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ClientApp\src\api-authorization\shared\image.model.ts" />
+    <None Remove="ClientApp\src\api-authorization\shared\user.model.ts" />
     <None Remove="ClientApp\src\app\blog-post\shared\blogpost.model.ts" />
     <None Remove="ClientApp\src\app\comments\shared\comment.model.ts" />
   </ItemGroup>
@@ -39,6 +41,8 @@
     <ProjectReference Include="..\MiniBlog.Data\MiniBlog.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\blog-post\shared\image.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\api-authorization\shared\user.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\blog-post\shared\blogpost.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\comments\shared\comment.model.ts">
       <SubType>Code</SubType>

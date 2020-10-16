@@ -10,6 +10,7 @@ namespace MiniBlog.Core.Models
         [PersonalData]
         public DateTime Born { get; set; }
 
+        public Guid ProfilePictureId { get; set; }
         [PersonalData]
         public Image ProfilePicture { get; set; }
     }

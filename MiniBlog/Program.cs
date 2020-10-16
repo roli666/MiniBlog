@@ -26,12 +26,11 @@ namespace MiniBlog
 
                     // requires using Microsoft.Extensions.Configuration;
                     var config = host.Services.GetRequiredService<IConfiguration>();
-                    var env = host.Services.GetRequiredService<IWebHostEnvironment>();
                     // Set password with the Secret Manager tool.
                     // dotnet user-secrets set SeedUserPW <pw>
                     var testUserPw = config["SeedUserPW"];
 
-                    SeedData.Initialize(services, env, testUserPw).Wait();
+                    SeedData.Initialize(services, testUserPw).Wait();
                 }
                 catch (Exception ex)
                 {

@@ -48,6 +48,12 @@ namespace MiniBlog.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "User name")]
+            [DataType(DataType.Text)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
+            public string UserName { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -81,7 +87,7 @@ namespace MiniBlog.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Born = Input.Born};
+                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email, Born = Input.Born};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

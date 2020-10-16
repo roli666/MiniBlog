@@ -24,8 +24,11 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/fetch-data']">Fetch data</a>
           </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right navbar-social">
           <ng-container *ngIf="isAuthenticated | async; else elseblock">
             <li class="nav-item">
+              <img src="{{userAvatar | async}}"  class="avatar" />
               <a class="nav-link" [routerLink]='["/authentication/profile"]' title="Manage">Hello {{ userName | async }}</a>
             </li>
             <li class="nav-item">
@@ -40,12 +43,6 @@
               <a class="nav-link" [routerLink]='["/authentication/login"]'>Login</a>
             </li>
           </ng-template>
-        </ul>
-        <ul class="nav navbar-nav navbar-right navbar-social">
-          <li><a href="#"><fa-icon [icon]="faFacebook"></fa-icon></a></li>
-          <li><a href="#"><fa-icon [icon]="faTwitter"></fa-icon></a></li>
-          <li><a href="#"><fa-icon [icon]="faInstagram"></fa-icon></a></li>
-          <li><a href="#"><fa-icon [icon]="faGoogle"></fa-icon></a></li>
         </ul>
       </div>
     </div>
