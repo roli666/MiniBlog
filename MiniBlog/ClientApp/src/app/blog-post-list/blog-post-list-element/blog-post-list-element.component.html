@@ -1,0 +1,20 @@
+<h1 *ngIf="!blogPost"><em>Loading...</em></h1>
+<div>
+  <div class="thumb">
+    <img class="img-fluid" src="{{ blogPostImage | async }}" default="img/ImagePlaceholder.png" alt="">
+    <ul class="thumb-info">
+      <li><a href="#"><fa-icon [icon]="faUser"></fa-icon> {{ blogPostAuthor | async }}</a></li>
+      <li><a href="#"><fa-icon [icon]="faCalendar"></fa-icon> {{ blogPostCreated | async | date }}</a></li>
+      <li><a href="#"><fa-icon [icon]="faComment"></fa-icon> {{ blogPostCommentCount | async }} Comments</a></li>
+    </ul>
+  </div>
+  <div class="details mt-20">
+    <a [routerLink]="['/blogpost', blogPostId | async]">
+      <h3>{{ blogPostTitle | async }}</h3>
+    </a>
+    <p class="tag-list-inline">Category: <a href="#">{{ blogPostCategory | async }}</a></p>
+    <p>{{ blogPostContent | async }}</p>
+    <a class="button" [routerLink]="['/blogpost', blogPostId | async]">Read More <fa-icon [icon]="faArrowRight"></fa-icon></a>
+  </div>
+  <p></p>
+</div>

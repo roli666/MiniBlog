@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 
 describe('ImagePreloadDirective', () => {
   it('should create an instance', () => {
-    const directive = new ImagePreloadDirective(TestBed.get(Renderer2), TestBed.get(ElementRef));
+    const directive = new ImagePreloadDirective(TestBed.get(ElementRef));
     expect(directive).toBeTruthy();
   });
 });

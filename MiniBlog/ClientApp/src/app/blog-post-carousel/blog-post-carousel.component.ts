@@ -27,7 +27,7 @@ export class BlogPostCarouselComponent implements OnInit {
   }
 
   GetBlogPosts() {
-    this.http.get<BlogPost[]>(this.baseUrl + 'BlogPost/GetBlogPosts').subscribe(result => {
+    this.http.get<BlogPost[]>(this.baseUrl + 'BlogPost/GetLastestPosts').subscribe(result => {
       this.latestBlogPosts = result;
     }, error => console.error(error));
   }

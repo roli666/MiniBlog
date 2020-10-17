@@ -6,7 +6,7 @@ namespace MiniBlog.Core.Helpers
 {
     public static class ApplicationUserExtensions
     {
-        public static AgeRestrictionCategories GetAgeRestrictionCategories(this ApplicationUser user)
+        public static AgeRestrictionCategories GetAgeRestrictionCategory(this ApplicationUser user)
         {
             var today = DateTime.Now;
             var userAge = today.Year - user.Born.Year;

@@ -1,6 +1,6 @@
 <h1 *ngIf="!(isAuthenticated | async)">Welcome to MiniBlog Sign-In to get started!</h1>
 <div *ngIf="isAuthenticated | async">
-  You are signed in.
+  <h1>Latest BlogPosts</h1>
   <app-blog-post-carousel></app-blog-post-carousel>
+  <app-blog-post-list></app-blog-post-list>
 </div>
-

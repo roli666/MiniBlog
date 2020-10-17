@@ -16,5 +16,6 @@ namespace MiniBlog.ViewModels
         public IEnumerable<Comment> Comments { get; set; }
         public IEnumerable<string> AllowedAges { get; set; }
         public string BackgroundImage { get; set; }
+        public int CommentCount { get; set; }
     }
 }

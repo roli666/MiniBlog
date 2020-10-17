@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace MiniBlog.Core.Entities
 {
@@ -25,6 +26,19 @@ namespace MiniBlog.Core.Entities
         public AgeRestrictionCategories AllowedAge { get; set; }
         public Image BackgroundImage { get; set; }
         public abstract string Category { get; }
+
+        public int GetCommentCount(IEnumerable<Comment> comments) 
+        {
+            //TODO: test recursion
+            int commentCount = comments.Count();
+            foreach (var comment in Comments)
+            {
+                if (comment.Children != null || comment.Children.Count() == 0)
+                    return 0;
+                commentCount += GetCommentCount(comment.Children);
+            }
+            return commentCount;
+        }
 
         public BlogPostBase(AgeRestrictionCategories allowedAges)
         {

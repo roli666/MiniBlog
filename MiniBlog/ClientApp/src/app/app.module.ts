@@ -20,6 +20,8 @@ import { BlogPostCarouselComponent } from './blog-post-carousel/blog-post-carous
 import { ImagePreloadDirective } from './image-preload.directive';
 import { NgbPaginationModule, NgbAlertModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommentsComponent } from './comments/comments.component';
+import { BlogPostListComponent } from './blog-post-list/blog-post-list.component';
+import { BlogPostListElementComponent } from './blog-post-list/blog-post-list-element/blog-post-list-element.component';
 
 library.add(fas, fab);
 
@@ -33,6 +35,8 @@ library.add(fas, fab);
     BlogPostCarouselComponent,
     ImagePreloadDirective,
     CommentsComponent,
+    BlogPostListComponent,
+    BlogPostListElementComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,7 +49,7 @@ library.add(fas, fab);
     NgbCarouselModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      //{ path: 'image', component: CounterComponent, canActivate: [AuthorizeGuard] },
+      { path: 'blogpost/:id', component: BlogPostComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [

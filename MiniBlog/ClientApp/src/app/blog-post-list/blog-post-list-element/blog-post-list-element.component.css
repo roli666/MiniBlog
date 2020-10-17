@@ -1,0 +1,55 @@
+.thumb {
+  position: relative
+}
+
+.thumb-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  max-width: 415px;
+  padding-left: 5px;
+  display: inline-flex;
+}
+
+.thumb-info li {
+  margin-right: 22px;
+  padding: 15px 0;
+}
+
+.thumb-info li a {
+  color: #777777;
+  font-size: 15px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0
+}
+
+.button {
+  display: inline-block;
+  border: 1px solid #222;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 24px;
+  background-color: #222;
+  color: #ff9907;
+  transition: all .4s ease
+}
+
+  .button:hover {
+    background-color: #ff9907;
+    border-color: #ff9907;
+    color: #000022
+  }
+
+p {
+  color: #777777;
+}
+
+.tag-list-inline a {
+  color: #555555
+}

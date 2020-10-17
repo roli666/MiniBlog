@@ -1,7 +1,9 @@
 <header class="header_area">
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']"><img src="img/MiniBlogLogo.png" alt=""></a>
+      <div class="navbar-header">
+        <a class="navbar-brand" [routerLink]="['/']"><img src="img/MiniBlogLogo.png" alt=""></a>
+      </div>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -12,24 +14,25 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse offset" [ngClass]="{ show: isExpanded }">
-        <ul class="nav navbar-nav menu_nav justify-content-center">
+        <ul class="nav navbar-nav menu_nav mr-auto justify-content-center">
           <li class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/counter']">Counter</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/fetch-data']">Fetch data</a>
+          <li class="nav-item dropdown" *ngIf="isAuthenticated | async">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Admin Tools<span class="caret"></span></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" [routerLink]="['/createBlogPost']">Create BlogPost</a>
+              <a class="dropdown-item" [routerLink]="['/editBlogPosts']">Edit BlogPosts</a>
+            </div>
           </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right navbar-social">
+        <ul class="nav navbar-nav">
           <ng-container *ngIf="isAuthenticated | async; else elseblock">
-            <li class="nav-item">
-              <img src="{{userAvatar | async}}"  class="avatar" />
-              <a class="nav-link" [routerLink]='["/authentication/profile"]' title="Manage">Hello {{ userName | async }}</a>
+            <li class="nav-item image-nav-item">
+              <a class="nav-link" [routerLink]='["/authentication/profile"]' title="Manage">Hello {{ userName | async }}!</a>
+              <a [routerLink]='["/authentication/profile"]' title="Manage"> <img src="{{userAvatar | async}}" default="img/AvatarPlaceholder.png" class="avatar" /></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Logout</a>

@@ -9,8 +9,9 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  public isAuthenticated: Observable<boolean>;
-  public userName: Observable<string>;
+
+  isAuthenticated: Observable<boolean>;
+  userName: Observable<string>;
 
   constructor(private authorizeService: AuthorizeService) { }
 

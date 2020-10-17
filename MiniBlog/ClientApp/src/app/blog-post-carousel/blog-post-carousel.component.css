@@ -85,8 +85,3 @@ ngb-carousel .carousel-item img {
   transition: transform .6s ease-in-out
 }
 */
-.carousel {
-  /* any dimensions are fine, it can be responsive with max-width */
-  width: 700px;
-  height: 350px;
-}

@@ -5,7 +5,8 @@ export interface BlogPost {
   createdBy: string;
   category: string;
   backgroundImage: string;
-  comments: Comment;
+  comments: Comment[];
   allowedAges: string[];
   createdOn: Date;
+  commentCount: number;
 }

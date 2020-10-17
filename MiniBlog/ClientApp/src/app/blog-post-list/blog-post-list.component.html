@@ -1,0 +1,6 @@
+<div *ngIf="isAuthenticated | async">
+  <h1>Blog Posts</h1>
+  <ng-container *ngFor="let blogPost of blogPosts | async">
+    <app-blog-post-list-element blogpost-id="{{blogPost}}"></app-blog-post-list-element>
+  </ng-container>
+</div>

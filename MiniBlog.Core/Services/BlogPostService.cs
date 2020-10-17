@@ -3,6 +3,7 @@ using MiniBlog.Core.Helpers;
 using MiniBlog.Core.Interfaces;
 using MiniBlog.Core.Interfaces.Repositories;
 using MiniBlog.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,7 +24,11 @@ namespace MiniBlog.Core.Services
             {
                 return await blogPostRepository.GetAllBlogPosts();
             }
-            return await blogPostRepository.GetAllBlogPostsByAgeRestriction(user.GetAgeRestrictionCategories());
+            return await blogPostRepository.GetAllBlogPostsByAgeRestriction(user.GetAgeRestrictionCategory());
+        }
+        public async Task<BlogPostBase> GetBlogPost(Guid id)
+        {
+            return await blogPostRepository.GetBlogPostById(id);
         }
     }
 }

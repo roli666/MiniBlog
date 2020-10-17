@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MiniBlog.Core.Constants;
 using MiniBlog.Core.Entities;
+using MiniBlog.Core.Helpers;
 using MiniBlog.Core.Interfaces;
 using MiniBlog.Core.Models;
 using MiniBlog.ViewModels;
@@ -35,23 +37,57 @@ namespace MiniBlog.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("GetBlogPosts")]
-        public async Task<IEnumerable<BlogPost>> GetBlogPosts(int page = 0)
+        [HttpGet("CreateBlogPost")]
+        public async Task<IActionResult> CreateBlogPost(BlogPost blogPost)
+        {
+            //var user = await userManager.GetUserAsync(User);
+            //var isAdmin = await userManager.IsInRoleAsync(user, Roles.Admin);
+            //var userAgeCategory = user.GetAgeRestrictionCategory();
+
+            //_logger.LogInformation("User:{0} requested blog post:{1}", user.UserName, id);
+            //var post = await blogPostService.GetBlogPost(id);
+            //if ((post.AllowedAge & userAgeCategory) != userAgeCategory && !isAdmin)
+            //{
+            //    ModelState.AddModelError("", "You do not match any of the age categories to see this content.");
+            //    return BadRequest(ModelState);
+            //}
+            return Ok();
+        }
+
+        [HttpGet("Post/{id:guid}")]
+        public async Task<IActionResult> GetBlogPost(Guid id)
+        {
+            var user = await userManager.GetUserAsync(User);
+            var isAdmin = await userManager.IsInRoleAsync(user, Roles.Admin);
+            var userAgeCategory = user.GetAgeRestrictionCategory();
+
+            _logger.LogInformation("User:{0} requested blog post:{1}", user.UserName, id);
+            var post = await blogPostService.GetBlogPost(id);
+            if ((post.AllowedAge & userAgeCategory) != userAgeCategory && !isAdmin)
+            {
+                ModelState.AddModelError("","You do not match any of the age categories to see this content.");
+                return BadRequest(ModelState);
+            }
+            return Ok(mapper.Map<BlogPost>(post));
+        }
+
+        [HttpGet("GetAllBlogPost")]
+        public async Task<IActionResult> GetAllBlogPost(int page = 0)
         {
             var user = await userManager.GetUserAsync(User);
             _logger.LogInformation("User:{0} requested blog posts page:{1}", user.UserName,page);
             var isAdmin = await userManager.IsInRoleAsync(user, Roles.Admin);
             var posts = await blogPostService.GetBlogPostsForUser(user,isAdmin);
-            return mapper.Map<IEnumerable<BlogPostBase>, IEnumerable<BlogPost>>(posts);
+            return Ok(mapper.Map<IEnumerable<BlogPostBase>, IEnumerable<BlogPost>>(posts));
         }
 
-        [HttpGet("GetLatestBlogPosts")]
-        public async Task<IEnumerable<BlogPost>> GetLastestPosts()
+        [HttpGet("GetLastestPosts")]
+        public async Task<IActionResult> GetLastestPosts()
         {
             var user = await userManager.GetUserAsync(User);
             var isAdmin = await userManager.IsInRoleAsync(user, Roles.Admin);
             var posts = await blogPostService.GetBlogPostsForUser(user,isAdmin);
-            return mapper.Map<IEnumerable<BlogPostBase>, IEnumerable<BlogPost>>(posts);
+            return Ok(mapper.Map<IEnumerable<BlogPostBase>, IEnumerable<BlogPost>>(posts));
         }
     }
 }
