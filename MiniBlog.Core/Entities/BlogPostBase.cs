@@ -2,7 +2,6 @@
 using MiniBlog.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -25,25 +24,25 @@ namespace MiniBlog.Core.Entities
         public IEnumerable<Comment> Comments { get; set; }
         public AgeRestrictionCategories AllowedAge { get; set; }
         public Image BackgroundImage { get; set; }
-        public abstract string Category { get; }
 
-        public int GetCommentCount(IEnumerable<Comment> comments) 
+        public string Category { get; }
+
+        public int GetCommentCount(IEnumerable<Comment> comments)
         {
-            //TODO: test recursion
             int commentCount = comments.Count();
             foreach (var comment in Comments)
             {
-                if (comment.Children != null || comment.Children.Count() == 0)
-                    return 0;
-                commentCount += GetCommentCount(comment.Children);
+                if (comment.Children != null && comment.Children.Count() != 0)
+                    commentCount += GetCommentCount(comment.Children);
             }
             return commentCount;
         }
 
-        public BlogPostBase(AgeRestrictionCategories allowedAges)
+        public BlogPostBase(AgeRestrictionCategories allowedAges, string category)
         {
             AllowedAge = allowedAges;
             CreatedOn = DateTime.Now;
+            Category = category;
         }
     }
 }

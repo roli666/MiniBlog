@@ -30,6 +30,9 @@ namespace MiniBlog
                     // dotnet user-secrets set SeedUserPW <pw>
                     var testUserPw = config["SeedUserPW"];
 
+                    if (testUserPw == null)
+                        testUserPw = "Admin123!";
+
                     SeedData.Initialize(services, testUserPw).Wait();
                 }
                 catch (Exception ex)

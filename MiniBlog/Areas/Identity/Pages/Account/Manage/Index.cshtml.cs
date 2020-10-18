@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MiniBlog.Core.Interfaces;
 using MiniBlog.Core.Models;
+using MiniBlog.ViewModels;
 
 namespace MiniBlog.Areas.Identity.Pages.Account.Manage
 {
@@ -14,16 +18,24 @@ namespace MiniBlog.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IImageService imageService;
+        private readonly IMapper mapper;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IImageService imageService,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.imageService = imageService;
+            this.mapper = mapper;
         }
 
         public string Username { get; set; }
+
+        public Image UserAvatar { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -38,6 +50,9 @@ namespace MiniBlog.Areas.Identity.Pages.Account.Manage
             [DataType(DataType.Text)]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
             public string UserName { get; set; }
+
+            [Display(Name = "User avatar")]
+            public IFormFile UserAvatar { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -45,6 +60,12 @@ namespace MiniBlog.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
 
             Username = userName;
+            var image = await imageService.GetUserAvatar(user);
+
+            if(image == null)
+                UserAvatar = new Image { ImagePath = "img/AvatarPlaceholder.png", ImageName = "Default" };
+            else
+                UserAvatar = mapper.Map<Image>(image);
 
             Input = new InputModel
             {
@@ -64,7 +85,7 @@ namespace MiniBlog.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile formFile)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -79,12 +100,13 @@ namespace MiniBlog.Areas.Identity.Pages.Account.Manage
             }
 
             var username = await _userManager.GetUserNameAsync(user);
+
             if (Input.UserName != username)
             {
-                var setPhoneResult = await _userManager.SetUserNameAsync(user, Input.UserName);
-                if (!setPhoneResult.Succeeded)
+                var setUserNameResult = await _userManager.SetUserNameAsync(user, Input.UserName);
+                if (!setUserNameResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Unexpected error when trying to set username";
                     return RedirectToPage();
                 }
             }

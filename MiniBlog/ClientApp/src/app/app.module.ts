@@ -22,6 +22,9 @@ import { NgbPaginationModule, NgbAlertModule, NgbCarouselModule } from '@ng-boot
 import { CommentsComponent } from './comments/comments.component';
 import { BlogPostListComponent } from './blog-post-list/blog-post-list.component';
 import { BlogPostListElementComponent } from './blog-post-list/blog-post-list-element/blog-post-list-element.component';
+import { AdminCreateBlogPostComponent } from './admin-create-blog-post/admin-create-blog-post.component';
+import { AdminEditBlogPostsComponent } from './admin-edit-blog-posts/admin-edit-blog-posts.component';
+import { AuthorizeRoleGuard } from '../api-authorization/authorizerole.guard';
 
 library.add(fas, fab);
 
@@ -36,7 +39,9 @@ library.add(fas, fab);
     ImagePreloadDirective,
     CommentsComponent,
     BlogPostListComponent,
-    BlogPostListElementComponent
+    BlogPostListElementComponent,
+    AdminCreateBlogPostComponent,
+    AdminEditBlogPostsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,6 +55,9 @@ library.add(fas, fab);
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'blogpost/:id', component: BlogPostComponent, canActivate: [AuthorizeGuard] },
+      { path: 'createBlogPost', component: AdminCreateBlogPostComponent, canActivate: [AuthorizeGuard, AuthorizeRoleGuard] },
+      { path: 'createBlogPost/:id', component: AdminCreateBlogPostComponent, canActivate: [AuthorizeGuard, AuthorizeRoleGuard] },
+      { path: 'editBlogPosts', component: AdminEditBlogPostsComponent, canActivate: [AuthorizeGuard, AuthorizeRoleGuard] },
     ])
   ],
   providers: [

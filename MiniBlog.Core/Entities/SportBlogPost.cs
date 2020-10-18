@@ -4,10 +4,9 @@ namespace MiniBlog.Core.Entities
 {
     public class SportBlogPost : BlogPostBase
     {
-        public SportBlogPost() : base(AgeRestrictionCategories.Felnőtt)
+        public new const string Category = "Sport";
+        public SportBlogPost() : base(AgeRestrictionCategories.Felnőtt, Category)
         {
         }
-
-        public override string Category => "Sport";
     }
 }

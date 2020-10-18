@@ -1,0 +1,30 @@
+<a [routerLink]="['/createBlogPost']">Create new blogpost</a>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Category</th>
+      <th>CreatedBy</th>
+      <th>Image</th>
+</thead>
+  <tbody>
+    <tr *ngFor="let blogPost of blogPosts">
+      <td>{{blogPost.id}}</td>
+      <td>{{blogPost.title}}</td>
+      <td>{{blogPost.content}}</td>
+      <td>{{blogPost.category}}</td>
+      <td>{{blogPost.createdBy}}</td>
+      <td>
+        <img class="preview-image" src="{{blogPost.backgroundImage}}">
+      </td>
+      <td>
+        <a class="btn btn-primary" [routerLink]="['/createBlogPost', blogPost.id]">Edit</a>
+      </td>
+      <td>
+        <a class="btn btn-danger" role="button" (click)="Delete(blogPost.id)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

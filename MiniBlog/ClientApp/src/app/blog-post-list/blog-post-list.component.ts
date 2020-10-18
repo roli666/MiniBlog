@@ -18,7 +18,6 @@ export class BlogPostListComponent implements OnInit {
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private authorizeService: AuthorizeService) {
     this.isAuthenticated = this.authorizeService.isAuthenticated();
     this.blogPosts = http.get<BlogPost[]>(baseUrl + 'BlogPost/GetAllBlogPost').pipe(map(bps => bps.map(bp => bp.id)));
-    this.blogPosts.subscribe(res => console.log(res));
   }
 
   ngOnInit() {

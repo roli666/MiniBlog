@@ -13,6 +13,11 @@ export const LogoutActions = {
   LoggedOut: 'logged-out'
 };
 
+export const Roles = {
+  Admin: 'Admin',
+  Standard: 'Standard'
+};
+
 export const LoginActions = {
   Login: 'login',
   LoginCallback: 'login-callback',

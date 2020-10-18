@@ -20,7 +20,7 @@
               [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item dropdown" *ngIf="isAuthenticated | async">
+          <li class="nav-item dropdown" *ngIf="isAuthenticated && isAdmin | async">
             <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Admin Tools<span class="caret"></span></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" [routerLink]="['/createBlogPost']">Create BlogPost</a>

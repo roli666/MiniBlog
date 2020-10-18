@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using MiniBlog.Core.Constants;
+﻿#nullable enable
+using Microsoft.AspNetCore.Identity;
 using MiniBlog.Core.Entities;
 using System;
 
@@ -10,8 +10,8 @@ namespace MiniBlog.Core.Models
         [PersonalData]
         public DateTime Born { get; set; }
 
-        public Guid ProfilePictureId { get; set; }
+        public Guid? ProfilePictureId { get; set; }
         [PersonalData]
-        public Image ProfilePicture { get; set; }
+        public Image? ProfilePicture { get; set; }
     }
 }

@@ -1,0 +1,23 @@
+<form (ngSubmit)="onSubmit()" method="post">
+  <div class="form-group">
+    <label for="blogPostTitle">Title</label>
+    <input type="text" class="form-control" id="blogPostTitle" placeholder="ex.: Valami sokkoló történt">
+  </div>
+  <div class="form-group">
+    <label for="blogPostContent">Content</label>
+    <textarea class="form-control" id="blogPostContent" placeholder="ex.: Valami sokkoló történetnek a tartalma"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="blogPostCategory">Category</label>
+    <select class="form-control" id="blogPostCategory">
+      <option>Sport</option>
+      <option>Public life</option>
+      <option>Gyerek</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="blogPostImage">Image</label>
+    <input type="file" class="form-control-file" id="blogPostImage">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

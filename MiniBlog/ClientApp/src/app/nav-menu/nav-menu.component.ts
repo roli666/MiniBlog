@@ -13,6 +13,7 @@ import { ImageService } from '../../image-service/image-service';
 export class NavMenuComponent {
 
   isAuthenticated: Observable<boolean>;
+  isAdmin: Observable<boolean>;
   userName: Observable<string>;
   userAvatar: Observable<string>;
   isExpanded = false;
@@ -23,6 +24,7 @@ export class NavMenuComponent {
 
   constructor(private authorizeService: AuthorizeService, private imageService: ImageService) {
     this.isAuthenticated = this.authorizeService.isAuthenticated();
+    this.isAdmin = this.authorizeService.isAdmin();
     this.userName = this.authorizeService.getUser().pipe(map(u => u && u.name));
     this.userAvatar = this.imageService.getUserAvatar().pipe(map(img => img && img.imagePath));
   }
